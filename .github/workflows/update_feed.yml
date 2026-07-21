@@ -1,0 +1,25 @@
+name: Update Pinterest RSS
+on:
+  schedule:
+    - cron: '0 */1 * * *' # Runs every 2 hours
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  scrape-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Fetch Nitter Feed
+        run: |
+          # Replace '://xcancel.com' with a working Nitter instance and your target profile
+          curl -sL "https://xcancel.com" -o feed.xml
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add feed.xml
+          git commit -m "Automated feed sync" || exit 0
+          git push
