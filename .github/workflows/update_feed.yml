@@ -14,7 +14,7 @@ jobs:
       - name: Fetch Nitter Feed
         run: |
           # Replace '://xcancel.com' with a working Nitter instance and your target profile
-          curl -sL "https://xcancel.com" -o feed.xml
+          curl -sL "https://nitter.net/lilyanwse253" -o feed.xml
 
       - name: Commit and Push Changes
         run: |
